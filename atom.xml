@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>狗子赖的博客</title>
+  
+  <subtitle>你装作不懂，我也故作轻松</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://tomotoes.com/"/>
+  <updated>2019-08-21T13:52:59.703Z</updated>
+  <id>http://tomotoes.com/</id>
+  
+  <author>
+    <name>狗子赖</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>欢迎来到狗子赖的个人博客</title>
+    <link href="http://tomotoes.com//posts/31c53b7f/"/>
+    <id>http://tomotoes.com//posts/31c53b7f/</id>
+    <published>2019-08-21T07:50:36.129Z</published>
+    <updated>2019-08-21T13:52:59.703Z</updated>
+    
+    <content type="html"><![CDATA[<script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;script&gt;
+        document.querySelectorAll(&#39;.github-emoji&#39;)
+          .forEach(el =&gt; {
+            if (!el.dataset.src) { return; }
+        
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
