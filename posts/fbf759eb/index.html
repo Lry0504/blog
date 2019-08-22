@@ -76,7 +76,7 @@
           <img src="/blog/img/avatar.jpg" alt="avatar">
         </a>
         <hgroup class="introduce">
-          <h5 class="nickname" id="name">dog lai</h5>
+          <h5 class="nickname" id="name">狗子赖</h5>
           
             <div id="yiyanmotto" class="motto">&nbsp;</div>
           
@@ -281,8 +281,8 @@
     </div>
     <footer>
         <div onclick="location.href='http://Lry0504.github.io'">
-            <img src="/blog/img/avatar.jpg" alt="dog lai">
-            <a>dog lai</a>
+            <img src="/blog/img/avatar.jpg" alt="狗子赖">
+            <a>狗子赖</a>
         </div>
     </footer>
 </blockquote>
@@ -359,6 +359,28 @@
     
 
     
+<section class="comments" id="comments">
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+        var gitalk = new Gitalk({
+        clientID: '0c638f7efb01adca495e',
+        clientSecret: '3eba59aae1614df0c3664106fe7b6f7b118b4834',
+        repo: 'blog',
+        owner: 'Lry0504',
+        admin: '[&#39;Lry0504&#39;]',
+        id: 'location.pathname',
+        labels: '[&#39;Gitalk&#39;]',
+        perPage: '15',
+        pagerDirection: 'last',
+        createIssueManually: 'true',
+        distractionFreeMode: 'false'
+      })
+        gitalk.render('gitalk-container');
+    </script>
+</section>
+
 
     
 
@@ -582,7 +604,7 @@ postshow();
 
 
 /* 粘贴提示 */
-G($(".post-content"), location.href, "dog lai");
+G($(".post-content"), location.href, "狗子赖");
 
 
 /* 控制台 */
