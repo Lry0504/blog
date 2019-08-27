@@ -242,8 +242,8 @@ function elasticText() {
 		})
 		textBox.appendChild(frg)
 		tf.innerHTML = ''
-		textBox.style = `width:${fs *
-			arr.length}px;font-size:${fs}px;color:${colr};position:relative`
+		let eBoxWidth = arr.length >= 10 ? "189" : fs * arr.length
+		textBox.style = `width:${eBoxWidth}px;font-size:${fs}px;color:${colr};position:relative`
 		tf.appendChild(textBox)
 
 		let m, n, ac, w, h

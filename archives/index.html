@@ -6,7 +6,7 @@
     
     
     
-    <title>归档 | 狗子赖的博客 | 你装作不懂，我也故作轻松</title>
+    <title>归档 | 狗子赖的博客</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     
     <meta name="theme-color" content="#77AAFF">
@@ -221,8 +221,6 @@
 
       <br/>
       
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/life/">life</a></li></ul>
-
     </div>
   </article>
 
@@ -234,36 +232,38 @@
 
         <footer class="footer">
     <div class="footer-content">
-        <!-- <span class="power">
+        <span class="power">
             <i class="icon icon-lg icon-copyright"></i>
             2019
             <i class="icon icon-lg icon-heart"></i>
             <a href="http://Lry0504.github.io">https://github.com/Lry0504</a>
         </span>
 
-        <br/> -->
+        <br/>
 
         <span id="RunTime" style="color:#a7a7a2;"></span>
-        <!-- <br/>
+        <br/>
 
         <span>
             
 	<i class="icon icon-lg icon-user">
-<span id="busuanzi_container_site_uv" style='display:none'>
-       访问用户：<span id="busuanzi_value_site_uv"></span>
-    </span>人</i>
+    <span id="busuanzi_container_site_uv">
+      访客人数：
+      <span id="busuanzi_value_site_uv"></span>
+    </span>人
+  </i>
     ·
-    <i class="icon icon-lg icon-eye">
-    <span id="busuanzi_container_site_pv" style='display:none'>
-      访问次数：<span id="busuanzi_value_site_pv"></span>
+  <i class="icon icon-lg icon-eye">
+    <span id="busuanzi_container_site_pv">
+      总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>次
-    </i>
+  </i>
 
 
         </span>
-        <br/>
+        <!-- <br/> -->
 
-        <span class="license"><a  target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">博客内容遵循 知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span> -->
+        <!-- <span class="license"><a  target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">博客内容遵循 知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span> -->
     </div>
 </footer>
 
@@ -393,8 +393,31 @@ if (window.console && window.console.log) {
 
 <!-- 不蒜子 -->
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+
+<!-- Online contact -->
+
+
+<!-- 代码块复制功能 -->
+<script src ="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="copy">';
+    copyHtml += '<span>Copy</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>
 
 <script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/blog/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
 </html>
