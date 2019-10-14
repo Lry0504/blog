@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Js数组扁平化 | 狗子赖的博客</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="前端">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Js数组扁平化的几种实现方式">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Js数组扁平化">
+<meta property="og:url" content="http://Lry0504.github.io/posts/3/index.html">
+<meta property="og:site_name" content="狗子赖的博客">
+<meta property="og:description" content="Js数组扁平化的几种实现方式">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lry0504/image_resources/master/blog/font-end/flatten.jpg">
+<meta property="og:updated_time" content="2019-10-14T13:04:10.149Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Js数组扁平化">
+<meta name="twitter:description" content="Js数组扁平化的几种实现方式">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lry0504/image_resources/master/blog/font-end/flatten.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="狗子赖的博客" href="/blog/atom.xml">
+    
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/blog/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/blog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/blog/img/avatar.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">狗子赖</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/blog/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:lry885175073@163.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Lry0504" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Twitter" href="https://twitter.com/Larry14624112" target="_blank"title="Twitter" >
+                <i class="icon icon-lg icon-twitter twitter"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Js数组扁平化</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#递归调用"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">递归调用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#reduce调用"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">reduce调用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ES6扩展运算符"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">ES6扩展运算符</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#flat调用"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">flat调用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#toString调用"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">toString调用</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结束语"><span class="post-toc-number">3.</span> <span class="post-toc-text">结束语</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-flatten"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Js数组扁平化</h1>
+        <div class="post-meta">
+            <i class="icon icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-10-14 11:12:25" datetime="2019-10-14T03:12:25.688Z"  itemprop="datePublished">2019-10-14</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/Js/">Js</a></li></ul>
+
+
+            <i>·</i>
+            
+<span title="文章总阅读量">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            本文字数总计&nbsp;<span class="post-count">696</span>&nbsp;字,
+            阅读本文可能花费您&nbsp;<span class="post-count">3</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Js数组扁平化的几种实现方式</p>
+<a id="more"></a>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Lry0504/image_resources/master/blog/font-end/flatten.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>数组扁平化，就是将一个存在多层嵌套的数组array，转化为只有一层的数组。假设存在一个函数flatten可以将数组扁平化，那么就可以得到如下效果：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var array = [1, [2], [[3]]];</span><br><span class="line">console.log(flatten(array)); //[1,2,3]</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="递归调用"><a href="#递归调用" class="headerlink" title="递归调用"></a>递归调用</h3><blockquote>
+<p>思路：循环遍历该数组，判断循环的元素是否仍是数组，如果是，则递归调用该方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var array = [[1,2,3],4,5,6,[[7]],[]];</span><br><span class="line">function flatten(arr, result = []) {</span><br><span class="line">  for(let item of arr) {</span><br><span class="line">    if(Array.isArray(item)) {</span><br><span class="line">      flatten(item, result);</span><br><span class="line">    } else {</span><br><span class="line">      result.push(item);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  return result;</span><br><span class="line">}</span><br><span class="line">console.log(flatten(array)); //[1,2,3,4,5,6,7]</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="reduce调用"><a href="#reduce调用" class="headerlink" title="reduce调用"></a>reduce调用</h3><blockquote>
+<p>思路：利用reduce搭配concat。reduce遍历数组中的每个元素，如果该元素仍然是数组，则重新调用该方法，否则将该元素concat到数组中</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var array = [[1,2,3],4,5,6,[[7]],[]];</span><br><span class="line">function flatten(arr) {</span><br><span class="line">  return arr.reduce(function(acc, cur) {</span><br><span class="line">    return acc.concat(Array.isArray(cur) ? flatten(cur) : cur);</span><br><span class="line">  }, [])</span><br><span class="line">}</span><br><span class="line">console.log(flatten(array));</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="ES6扩展运算符"><a href="#ES6扩展运算符" class="headerlink" title="ES6扩展运算符"></a>ES6扩展运算符</h3><p>ES6中的扩展运算符用来取出参数对象中的所有可遍历属性，拷贝到当前对象中</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,2,[3,[4]]];</span><br><span class="line">console.log([].concat(...arr)); //[1,2,3,[4]]</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>[].concat(...arr)</code>只能拉平一层数组，但是我们很容易据此想到，利用<code>while</code>循环判断数组中某个元素是否仍为数字，如果存在一个元素为数组，则继续拉平</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var array = [[1,2,3],4,5,6,[[7]],[]];</span><br><span class="line">function flatten(arr) {</span><br><span class="line">  while(arr.some(item =&gt; Array.isArray(item))) {</span><br><span class="line">    arr = [].concat(...arr);</span><br><span class="line">  }</span><br><span class="line">  return arr;</span><br><span class="line">}</span><br><span class="line">console.log(flatten(array)); //[1,2,3,4,5,6,7]</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="flat调用"><a href="#flat调用" class="headerlink" title="flat调用"></a>flat调用</h3><p>arr.flat(index)可以拉平数组，其中index表示拉平多少层数组，如果要拉平无限层数组，则可以表示为<code>arr.flat(Infinity)</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,[2,[3,4,[]]]];</span><br><span class="line">console.log(arr.flat(Infinity)); //[1,2,3,4]</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="toString调用"><a href="#toString调用" class="headerlink" title="toString调用"></a>toString调用</h3><p>如果数组中的元素都是数字，我们就可以考虑toString方法</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1,[2,[3,4]]].toString(); //"1,2,3,4"</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>思路：调用toString方法，返回一个用逗号分隔的扁平字符串。此时，我们使用split分隔逗号，得到一个string类型的数组，再遍历数组中的每个元素，将其转化成number类型</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,[2,[3,4]]];</span><br><span class="line">function flatten(arr) {</span><br><span class="line">  return arr.toString().split(",").map(function(item) {</span><br><span class="line">    return +item;</span><br><span class="line">  })</span><br><span class="line">}</span><br><span class="line">console.log(flatten(arr)); //[1,2,3,4]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然而，上面的方法存在很大的局限性：</p>
+<ol>
+<li>如果arr中存在空数组，则空数组将会被转换为空字符串</li>
+<li>如果数组中存在非数字，比如[1,”1”]，则会产生错误的结果</li>
+</ol>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><blockquote>
+<p>如有错误，欢迎指正</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+        </div>
+        <div>
+  <div>
+      <!-- {% if not is_index %} -->
+      <div style="text-align:center;color: #ccc;font-size:14px;margin-bottom: 10px;">-----------------------<span style="margin: 0 10px;">本文结束</span><i class="icon icon-paw"></i><span style="margin: 0 10px;">感谢您的阅读</span>-----------------------</div>
+      <!-- {% endif %} -->
+  </div>
+</div>
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新：<time datetime="2019-10-14T13:04:10.149Z" itemprop="dateUpdated">2019-10-14 21:04:10</time>
+</span>
+
+
+        
+        原文链接：<a href="/blog/posts/3/" target="_blank" rel="external">http://Lry0504.github.io/posts/3/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='http://Lry0504.github.io'">
+            <img src="/blog/img/avatar.jpg" alt="狗子赖">
+            <a>狗子赖</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://Lry0504.github.io/posts/3/&title=《Js数组扁平化》 — 狗子赖的博客&pic=http://Lry0504.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://Lry0504.github.io/posts/3/&title=《Js数组扁平化》 — 狗子赖的博客&source=Js数组扁平化的几种实现方式" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://Lry0504.github.io/posts/3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Js数组扁平化》 — 狗子赖的博客&url=http://Lry0504.github.io/posts/3/&via=http://Lry0504.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://Lry0504.github.io/posts/3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/blog/posts/2/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：函数防抖与节流">下一篇：函数防抖与节流</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2019
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="http://Lry0504.github.io">https://github.com/Lry0504</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+    <span>
+      访客人数：
+      <span id="busuanzi_value_site_uv"></span>
+    </span>人
+  </i>
+    ·
+  <i class="icon icon-lg icon-eye">
+    <span>
+      总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+  </i>
+
+
+        </span>
+        <!-- <br/> -->
+
+        <!-- <span class="license"><a  target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">博客内容遵循 知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span> -->
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/blog/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/blog/img/wechat.png" data-alipay="/blog/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://Lry0504.github.io/posts/3/&title=《Js数组扁平化》 — 狗子赖的博客&pic=http://Lry0504.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://Lry0504.github.io/posts/3/&title=《Js数组扁平化》 — 狗子赖的博客&source=Js数组扁平化的几种实现方式" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://Lry0504.github.io/posts/3/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Js数组扁平化》 — 狗子赖的博客&url=http://Lry0504.github.io/posts/3/&via=http://Lry0504.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://Lry0504.github.io/posts/3/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxUlEQVR42u3aQZLCMAwEQP7/6eyVLTYwkmIDW+0TBSHpXFSWxrdbvI6Hdf/94zX5PW8rFi4u7ph7PF1nlLNf8/vkd8DFxX0X93mhSQrWVde/sOHi4n4hN8fh4uL+P271DmcvhouL+8ncpGmZDDWqTdEFvRouLu6AWx1urvi8ZL6Li4vb4h7FNWlyqgPWP/6Li4u7hZsXlGrQ8nxjlG9fcHFxP4Hbi1fnxy/yQomLi7uHWy00SXm6ttidonFxcRdwk6gjGZtWj23l3F/X4OLibuRWWesapBfPxcXF3cJNykd+hKK6YRrFLbi4uIu5k5ikN/7Ij3oUBqa4uLgXcRNcIf6MB6zNES0uLu4Wbu8xySC1GsCUt1m4uLiLufNDEuXEJohnouYHFxd3MXcSiFbHKPnLnBYyXFzcLdw8Oq02MPn2KIp2cHFx38SdHK+cRC+RBxcXdzH3KK5q01IdyDa7K1xc3Eu5+eqhe8WxV/5wcXGv5VaPRPRClGohO/0VFxd3I3fS8IzS3aB44eLifgu310rlLzzKY3Fxcbdzq73UPFgdFTJcXNwBNy89vZFrNYbBxcV9L7c63Exand7o5OL5Li4ubof7A6pNAS8wS6znAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/blog/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/blog/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/blog/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/blog/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2019/08/21");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "狗子赖");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 天妒嘤才狗子赖 %c  © Lry0504  http://Lry0504.github.io \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Online contact -->
+
+
+<!-- 代码块复制功能 -->
+<script src ="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="copy">';
+    copyHtml += '<span>Copy</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>
+
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/blog/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+</html>
