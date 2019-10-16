@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Js数组去重 | 狗子赖的博客</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="前端">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="Js数组去重的几种实现方式">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Js数组去重">
+<meta property="og:url" content="http://Lry0504.github.io/posts/4/index.html">
+<meta property="og:site_name" content="狗子赖的博客">
+<meta property="og:description" content="Js数组去重的几种实现方式">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Lry0504/image_resources/master/blog/font-end/unique.jpg">
+<meta property="og:updated_time" content="2019-10-16T07:47:13.884Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Js数组去重">
+<meta name="twitter:description" content="Js数组去重的几种实现方式">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Lry0504/image_resources/master/blog/font-end/unique.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="狗子赖的博客" href="/blog/atom.xml">
+    
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/blog/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/blog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/blog/img/avatar.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">狗子赖</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/blog/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:lry885175073@163.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Lry0504" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Twitter" href="https://twitter.com/Larry14624112" target="_blank"title="Twitter" >
+                <i class="icon icon-lg icon-twitter twitter"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Js数组去重</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#双层循环"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">双层循环</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#indexOf循环"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">indexOf循环</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#排序后去重"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">排序后去重</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用includes"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">利用includes</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用filter"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">利用filter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用reduce-includes"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">利用reduce+includes</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用Set"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">利用Set</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用hasOwnProperty"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">利用hasOwnProperty</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用Map"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">利用Map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#利用递归"><span class="post-toc-number">2.10.</span> <span class="post-toc-text">利用递归</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结束语"><span class="post-toc-number">3.</span> <span class="post-toc-text">结束语</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-unique"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Js数组去重</h1>
+        <div class="post-meta">
+            <i class="icon icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-10-15 10:08:22" datetime="2019-10-15T02:08:22.198Z"  itemprop="datePublished">2019-10-15</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/Js/">Js</a></li></ul>
+
+
+            <i>·</i>
+            
+<span title="文章总阅读量">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            本文字数总计&nbsp;<span class="post-count">1.6k</span>&nbsp;字,
+            阅读本文可能花费您&nbsp;<span class="post-count">7</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>Js数组去重的几种实现方式</p>
+<a id="more"></a>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Js数组去重问题，是面试当中的经典问题，也是比较基础的问题了，下面总结几种比较常见的操作</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://raw.githubusercontent.com/Lry0504/image_resources/master/blog/font-end/unique.jpg" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="双层循环"><a href="#双层循环" class="headerlink" title="双层循环"></a>双层循环</h3><blockquote>
+<p>思路：利用双层循环嵌套，然后用splice去重。当循环数组的第一个值和第二个值相同的时候，用splice删除第二个值</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  for(var i = 0; i &lt; arr.length; i++) {</span><br><span class="line">    for(var j = i + 1; j &lt; arr.length; j++) {</span><br><span class="line">      if(arr[i] === arr[j]) {</span><br><span class="line">        arr.splice(j, 1);</span><br><span class="line">        j--;</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  return arr;</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "true", true, "false", false, NaN, null, NaN, "NaN", undefined, 15, {…}, 0, "a", {…}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，双层循环<em>不能去重 NaN 和 {}</em></p>
+<h3 id="indexOf循环"><a href="#indexOf循环" class="headerlink" title="indexOf循环"></a>indexOf循环</h3><blockquote>
+<p>思路：利用indexOf循环数组，判断结果数组res中是否存在当前元素，如果存在，则跳过，否则把当前元素添加到结果数组res中</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  var res = [];</span><br><span class="line">  for(var i = 0; i &lt; arr.length; i++) {</span><br><span class="line">    if(res.indexOf(arr[i]) === -1) {</span><br><span class="line">      res.push(arr[i]);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  return res;</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "true", true, "false", false, NaN, null, NaN, "NaN", undefined, 15, {…}, 0, "a", {…}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果中可以看出，使用indexOf循环数组，也<em>不能去重 NaN 和 {}</em></p>
+<h3 id="排序后去重"><a href="#排序后去重" class="headerlink" title="排序后去重"></a>排序后去重</h3><blockquote>
+<p>思路：将数组使用sort排序后，相同的值便会排在一起，这样我们只需要判断当前的元素与上一个元素是否相同，如果相同，就说明重复，否则push进res</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  arr = arr.sort();</span><br><span class="line">  var res = [arr[0]];</span><br><span class="line">  for(var i = 1; i &lt; arr.length; i++) {</span><br><span class="line">    if(arr[i] !== arr[i-1]) {</span><br><span class="line">      res.push(arr[i]);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  return res;</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[0, 1, 15, NaN, NaN, "NaN", {…}, {…}, "a", "false", false, null, "true", true, undefined]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果来看，使用sort排序后去重，也<em>不能去重 NaN 和 {}</em></p>
+<h3 id="利用includes"><a href="#利用includes" class="headerlink" title="利用includes"></a>利用includes</h3><blockquote>
+<p>思路：includes主要用来测试数组中是否含有某个值</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  var res = [];</span><br><span class="line">  for(var i = 0; i &lt; arr.length; i++) {</span><br><span class="line">    if(!res.includes(arr[i])) {</span><br><span class="line">      res.push(arr[i]);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  return res;</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "true", true, "false", false, NaN, null, "NaN", undefined, 15, {…}, 0, "a", {…}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，利用includes去重，<em>不能去重 {}</em></p>
+<h3 id="利用filter"><a href="#利用filter" class="headerlink" title="利用filter"></a>利用filter</h3><blockquote>
+<p>思路：f判断数组中，当前元素在数组中的第一个索引是否是filter中当前索引值</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  return arr.filter(function(item, index, arr) {</span><br><span class="line">    return arr.indexOf(item) === index;</span><br><span class="line">  })</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "true", true, "false", false, null, "NaN", undefined, 15, {…}, 0, "a", {…}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，利用filter去重，<em>把 NaN 去掉了，并且不能去重 {}</em></p>
+<h3 id="利用reduce-includes"><a href="#利用reduce-includes" class="headerlink" title="利用reduce+includes"></a>利用reduce+includes</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  return arr.reduce((acc, cur) =&gt; </span><br><span class="line">    acc.includes(cur) ? acc : [...acc, cur], []</span><br><span class="line">  )</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "true", true, "false", false, NaN, null, "NaN", undefined, 15, {…}, 0, "a", {…}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，利用reduce+includes去重，<em>不能去重 {}</em></p>
+<h3 id="利用Set"><a href="#利用Set" class="headerlink" title="利用Set"></a>利用Set</h3><blockquote>
+<p>思路：Set对象是值的集合，你可以按照插入的顺序迭代它的元素。 Set中的元素只会出现一次，即 Set 中的元素是唯一的</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  return Array.from(new Set(arr));</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); // [1, "true", true, "false", false, NaN, null, "NaN", undefined, 15, {…}, 0, "a", {…}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，利用ES6新语法Set去重，<em>不能去重 {}</em>。上面代码中，<code>Array.from(new Set(arr))</code>可以简化为<code>[... new Set(arr)]</code></p>
+<h3 id="利用hasOwnProperty"><a href="#利用hasOwnProperty" class="headerlink" title="利用hasOwnProperty"></a>利用hasOwnProperty</h3><p>hasOwnProperty方法会返回一个布尔值，指示对象自身属性中是否具有指定的属性（是否有指定的键），此方法无法检查该对象的原型链中是否具有该属性，该属性必须是对象本身的一个成员。</p>
+<blockquote>
+<p>思路：利用一个空对象obj，把数组的值存成obj对象的key值，如obj[arr[item1]] = true，判断另一个值obj[arr[item2]]是否存在，如果存在，则是相同的值</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,"1",2,2,1];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  var obj = {};</span><br><span class="line">  return arr.filter(function(item, index, arr) {</span><br><span class="line">    return obj.hasOwnProperty(item) ? false : (obj[item] = true)</span><br><span class="line">  })</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1,2]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，这个方法是存在问题的。”1”和1是不同的，但是<strong>Object[1]和Object[“1”]却是同一个引用（对象key值只能是字符串）</strong><br>解决办法：使用<code>typeof item + item</code>拼成字符串作为key值</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,"1",2,2,1,{value: 1},{value: 1},{value: 2}];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  var obj = {};</span><br><span class="line">  return arr.filter(function(item, index, arr) {</span><br><span class="line">    return obj.hasOwnProperty(typeof item + item) ? false : (obj[typeof item + item] = true)</span><br><span class="line">  })</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "1", 2, {value: 1}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果仍能看出，如果数组中存在对象时，如{value: 1}，typeof item + item的结果都是<code>object[object Object]</code><br>解决方法：使用JSON.stringify()将对象序列化来避免相同的键值</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,"1",2,2,1,{value: 1},{value: 1},{value: 2}];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  var obj = {};</span><br><span class="line">  return arr.filter(function(item, index, arr) {</span><br><span class="line">    return obj.hasOwnProperty(typeof item + JSON.stringify(item)) ? false : (obj[typeof item + JSON.stringify(item)] = true)</span><br><span class="line">  })</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "1", 2, {value: 1}, {value: 2}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>利用hasOwnProperty去重，<em>可以去重所有情况</em></p>
+<h3 id="利用Map"><a href="#利用Map" class="headerlink" title="利用Map"></a>利用Map</h3><blockquote>
+<p>思路：创建一个空的Map数据结构，遍历需要去重的数组，把数组的每一个元素作为key存到Map中。由于Map中不会出现相同的key值，所以最终得到的就是去重后的结果</p>
+</blockquote>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  let map = new Map();</span><br><span class="line">  let array = [];</span><br><span class="line">  for(let i = 0; i &lt; arr.length; i++) {</span><br><span class="line">    if(map.has(arr[i])) { //如果有该key值</span><br><span class="line">      map.set(arr[i], true);</span><br><span class="line">    } else {</span><br><span class="line">      map.set(arr[i], false);</span><br><span class="line">      array.push(arr[i]);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  return array;</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "true", true, "false", false, NaN, null, "NaN", undefined, 15, {…}, 0, "a", {…}]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，利用map数据结构 <em>不能去重 {}</em></p>
+<h3 id="利用递归"><a href="#利用递归" class="headerlink" title="利用递归"></a>利用递归</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,1,"true",true,"false",false,NaN,null,NaN,"NaN",null,undefined,15,undefined,15,{},0,"a",{},0,"a"];</span><br><span class="line">function unique(arr) {</span><br><span class="line">  arr.sort(function(a, b) {</span><br><span class="line">    return a- b;</span><br><span class="line">  })</span><br><span class="line">  function loop(index) {</span><br><span class="line">    if(index &gt;= 1) {</span><br><span class="line">      if(arr[index] === arr[index - 1]) {</span><br><span class="line">        arr.splice(index, 1);</span><br><span class="line">      }</span><br><span class="line">      loop(index - 1); //递归loop</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  loop(arr.length - 1);</span><br><span class="line">  return arr;</span><br><span class="line">}</span><br><span class="line">console.log(unique(arr)); //[1, "true", true, "false", false, NaN, null, NaN, "NaN", null, 15, {…}, 0, "a", {…}, 0, "a", undefined]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>从打印结果可以看出，利用递归去重数组，<em>不能去重 NaN null 0 “a” {}</em></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><blockquote>
+<p>如有错误，欢迎指正~</p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+        </div>
+        <div>
+  <div>
+      <!-- {% if not is_index %} -->
+      <div style="text-align:center;color: #ccc;font-size:14px;margin-bottom: 10px;">-----------------------<span style="margin: 0 10px;">本文结束</span><i class="icon icon-paw"></i><span style="margin: 0 10px;">感谢您的阅读</span>-----------------------</div>
+      <!-- {% endif %} -->
+  </div>
+</div>
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新：<time datetime="2019-10-16T07:47:13.884Z" itemprop="dateUpdated">2019-10-16 15:47:13</time>
+</span>
+
+
+        
+        原文链接：<a href="/blog/posts/4/" target="_blank" rel="external">http://Lry0504.github.io/posts/4/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='http://Lry0504.github.io'">
+            <img src="/blog/img/avatar.jpg" alt="狗子赖">
+            <a>狗子赖</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://Lry0504.github.io/posts/4/&title=《Js数组去重》 — 狗子赖的博客&pic=http://Lry0504.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://Lry0504.github.io/posts/4/&title=《Js数组去重》 — 狗子赖的博客&source=Js数组去重的几种实现方式" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://Lry0504.github.io/posts/4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Js数组去重》 — 狗子赖的博客&url=http://Lry0504.github.io/posts/4/&via=http://Lry0504.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://Lry0504.github.io/posts/4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/blog/posts/3/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：Js数组扁平化">下一篇：Js数组扁平化</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2019
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="http://Lry0504.github.io">https://github.com/Lry0504</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+    <span>
+      访客人数：
+      <span id="busuanzi_value_site_uv"></span>
+    </span>人
+  </i>
+    ·
+  <i class="icon icon-lg icon-eye">
+    <span>
+      总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+  </i>
+
+
+        </span>
+        <!-- <br/> -->
+
+        <!-- <span class="license"><a  target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">博客内容遵循 知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span> -->
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/blog/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/blog/img/wechat.png" data-alipay="/blog/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://Lry0504.github.io/posts/4/&title=《Js数组去重》 — 狗子赖的博客&pic=http://Lry0504.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://Lry0504.github.io/posts/4/&title=《Js数组去重》 — 狗子赖的博客&source=Js数组去重的几种实现方式" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://Lry0504.github.io/posts/4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Js数组去重》 — 狗子赖的博客&url=http://Lry0504.github.io/posts/4/&via=http://Lry0504.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://Lry0504.github.io/posts/4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwUlEQVR42u3aO27EMAwFwNz/0g6QKo2ER1GWVYyqxcKwRw3B389PfJ6/M///+Xc679xwcHFx29xneuas0TPJZebvHF4eFxf3ILcapJIwlBBzAy4u7p3cJOiMAtDa5XFxce/nJuVN5wK4uLi3cZPiJwltSYtk/vy2Wg0XF7fBrTY33/j9Yn8XFxe3yH2Kp9MQ2fB1XFzcI9xkBJI3QOdvqKZEw6vi4uIe5I4+sHb6aVNUq+Hi4r7A7QxB83+2jWFwcXEPcvNw0ylv+mkQLi7uSW6/mJkHqSSRikIhLi7uEW7exFwLQIWliuKSBy4u7hluvjxRbYAm4bK8bIGLi/syt/rhtVZIdYgyvB4uLu5xbnXsMb9Skujg4uLexq2mJnkBk69ubJj84OLibuW+0QzNlyryAIqLi3uS2/nM2npWNUTi4uJ+xe0vW1RHKfnBxcX9itsJTGsp0eYJMC4u7lZuNaBUof2VrLyli4uLu5ebBK+8mMlnOGsDGFxc3JPcfklTXarIe7rRTBgXF/cjbjVXWpztzK+Hi4t7MXctfckDFi4u7g3cahlTHcdWFzI2tEVwcXEb3LWG6dp6Vv4VXFzcj7i/0YCVjLppQSIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/blog/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/blog/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/blog/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/blog/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2019/08/21");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "狗子赖");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 天妒嘤才狗子赖 %c  © Lry0504  http://Lry0504.github.io \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Online contact -->
+
+
+<!-- 代码块复制功能 -->
+<script src ="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="copy">';
+    copyHtml += '<span>Copy</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>
+
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/blog/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+</html>
