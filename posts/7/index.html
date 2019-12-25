@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta charset="utf-8">
+    
+    
+    
+    <title>React Hooks系列之useEffect（二） | 狗子赖的博客</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    
+    <meta name="theme-color" content="#77AAFF">
+    
+    
+    <meta name="keywords" content="前端">
+    
+    
+
+    
+
+    <!-- Baidu Push -->
+<script>
+	(function(){
+		var bp = document.createElement('script');
+		var curProtocol = window.location.protocol.split(':')[0];
+		if (curProtocol === 'https') {
+			bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+		}
+		else {
+			bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+		}
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(bp, s);
+	})();
+
+	var _hmt = _hmt || [];
+</script>
+
+
+
+    
+    <meta name="description" content="React Hooks系列之useEffect（二）">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Hooks系列之useEffect（二）">
+<meta property="og:url" content="http://Lry0504.github.io/posts/7/index.html">
+<meta property="og:site_name" content="狗子赖的博客">
+<meta property="og:description" content="React Hooks系列之useEffect（二）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://overreacted.io/timeout_counter_refs-78f7948263dd13b023498b23cb99f4fc.gif">
+<meta property="og:image" content="https://overreacted.io/deja_vu-5fe238cf03a21dfa32af624124fcdcff.gif">
+<meta property="og:image" content="https://overreacted.io/deps-compare-correct-fae247cd068eedbd4b62ba50592d2b3d.gif">
+<meta property="og:image" content="https://overreacted.io/deps-compare-wrong-25f75db3f9f57ffe1426912093577445.gif">
+<meta property="og:image" content="https://overreacted.io/interval-wrong-29e53bd0c9b7d2ac70d3cd924886b030.gif">
+<meta property="og:image" content="https://overreacted.io/interval-right-f128ad20c28317ed27a3cb68197fc906.gif">
+<meta property="og:updated_time" content="2019-12-25T08:35:32.205Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Hooks系列之useEffect（二）">
+<meta name="twitter:description" content="React Hooks系列之useEffect（二）">
+<meta name="twitter:image" content="https://overreacted.io/timeout_counter_refs-78f7948263dd13b023498b23cb99f4fc.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="狗子赖的博客" href="/blog/atom.xml">
+    
+    <link rel="shortcut icon" href="/blog/img/favicon.ico">
+    <link id="style" rel="stylesheet" href="/blog/css/style.css?v=3.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+            
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+    <aside id="menu"  class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" >
+      <div class="brand">
+        <a href="/blog/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/blog/img/avatar.jpg" alt="avatar">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname" id="name">狗子赖</h5>
+          
+            <div id="yiyanmotto" class="motto">&nbsp;</div>
+          
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+              <li class="waves-block waves-effect">
+                  <a href="/blog/"  >
+                    <i class="icon icon-lg icon-home"></i>
+                    <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/archives"  >
+                    <i class="icon icon-lg icon-archives"></i>
+                    <span>归 档</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/categories"  >
+                    <i class="icon icon-lg icon-th-list"></i>
+                    <span>分 类</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/tags"  >
+                    <i class="icon icon-lg icon-tags"></i>
+                    <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+              <li class="waves-block waves-effect">
+                  <a href="/blog/about"  >
+                    <i class="icon icon-lg icon-smile-o"></i>
+                    <span>关 于</span><i class="icon icon-lg icon-caret-left"></i>
+                  </a>
+              </li>
+            
+      <div class="nav2">
+          
+              <a class="nav2item" data-title="Email" href="mailto:lry885175073@163.com" target="_parent"title="Email" >
+                <i class="icon icon-lg icon-envelope-o envelope-o"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Github" href="https://github.com/Lry0504" target="_blank"title="Github" >
+                <i class="icon icon-lg icon-github github"></i>
+              </a>
+          
+              <a class="nav2item" data-title="Twitter" href="https://twitter.com/Larry14624112" target="_blank"title="Twitter" >
+                <i class="icon icon-lg icon-twitter twitter"></i>
+              </a>
+          
+
+            </div>
+        
+      </ul>
+        
+    </div>
+  </div>
+ 
+</aside>
+
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">React Hooks系列之useEffect（二）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        <a href="../../atom.xml" target="_blank" class="header-icon waves-effect waves-circle waves-light" id="Rss">
+            <i class="icon icon-lg icon-rss"></i>
+        </a>
+    </div>
+</header>
+<header class="content-header post-header">
+    
+    
+    <div class="container fade-scale">
+        <div id="myheader">
+            <h1 class="title">
+                
+            </h1>
+            <h5 class="subtitle">
+                
+                
+            </h5>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>目录</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#正文"><span class="post-toc-number">2.</span> <span class="post-toc-text">正文</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Effect中的清理"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Effect中的清理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#同步，-而非生命周期"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">同步， 而非生命周期</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#告诉React去比对你的Effects"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">告诉React去比对你的Effects</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#关于依赖项不要对React撒谎"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">关于依赖项不要对React撒谎</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#如果设置了错误的依赖会怎么样呢？"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">如果设置了错误的依赖会怎么样呢？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#两种诚实告知依赖的方法"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">两种诚实告知依赖的方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#让Effects自给自足"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">让Effects自给自足</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结束语"><span class="post-toc-number">3.</span> <span class="post-toc-text">结束语</span></a></li></ol>
+        </nav>
+    </aside>
+   
+<article id="post-react Hooks[3]"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">React Hooks系列之useEffect（二）</h1>
+        <div class="post-meta">
+            <i class="icon icon-calendar-o"></i>
+            发表于
+            <time class="post-time" title="2019-12-25 13:36:10" datetime="2019-12-25T05:36:10.603Z"  itemprop="datePublished">2019-12-25</time>
+
+            <br id="mybreak"/>
+            
+	<i class="icon icon-lg icon-folder-o"></i>
+	分类：<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/blog/categories/React/">React</a></li></ul>
+
+
+            <i>·</i>
+            
+<span title="文章总阅读量">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>次浏览
+</span>
+
+
+        </div>
+        <div class="post-count-custom">
+            <i class="icon icon-lg icon-comment-o"></i>
+            本文字数总计&nbsp;<span class="post-count">4.1k</span>&nbsp;字,
+            阅读本文可能花费您&nbsp;<span class="post-count">16</span>&nbsp;分钟
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>React Hooks系列之useEffect（二）</p>
+<a id="more"></a>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>到目前为止，我们可以明确地喊出下面重要的事实：每一个组件内的函数（包括事件处理函数，effects，定时器或者API调用等等）会捕获某次渲染中定义的props和state。</p>
+<p>所以下面的两个例子是相等的：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Example(props) {</span><br><span class="line">  useEffect(() =&gt; {</span><br><span class="line">    setTimeout(() =&gt; {</span><br><span class="line">      console.log(props.counter);</span><br><span class="line">    }, 1000);</span><br><span class="line">  });</span><br><span class="line">  // ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Example(props) {</span><br><span class="line">  const counter = props.counter;</span><br><span class="line">  useEffect(() =&gt; {</span><br><span class="line">    setTimeout(() =&gt; {</span><br><span class="line">      console.log(counter);</span><br><span class="line">    }, 1000);</span><br><span class="line">  });</span><br><span class="line">  // ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在组件内什么时候去读取props或者state是无关紧要的。因为它们不会改变。在单次渲染的范围内，props和state始终保持不变。（解构赋值的props使得这一点更明显。）</p>
+<p>当然，有时候你可能想在effect的回调函数里读取最新的值而不是捕获的值。最简单的实现方法是使用refs，<a href="https://overreacted.io/how-are-function-components-different-from-classes/" target="_blank" rel="noopener">这篇文章</a>的最后一部分介绍了相关内容。</p>
+<p>需要注意的是当你想要从过去渲染中的函数里读取未来的props和state，你是在逆潮而动。虽然它并没有错（有时候可能也需要这样做），但它因为打破了默认范式会使代码显得不够“干净”。这是我们有意为之的，因为它能帮助突出哪些代码是脆弱的，是需要依赖时间次序的。在class中，如果发生这种情况就没那么显而易见了。</p>
+<p>下面这个<a href="https://codesandbox.io/s/rm7z22qnlp" target="_blank" rel="noopener">计数器版本</a>模拟了class中的行为：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Example() {</span><br><span class="line">  const [count, setCount] = useState(0);</span><br><span class="line">  const latestCount = useRef(count);</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; {</span><br><span class="line">    // Set the mutable latest value</span><br><span class="line">    latestCount.current = count;</span><br><span class="line">    setTimeout(() =&gt; {</span><br><span class="line">      // Read the mutable latest value</span><br><span class="line">      console.log(`You clicked ${latestCount.current} times`);</span><br><span class="line">    }, 3000);</span><br><span class="line">  });</span><br><span class="line">  // ...</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://overreacted.io/timeout_counter_refs-78f7948263dd13b023498b23cb99f4fc.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在React中去直接修改值看上去有点怪异。然而，在class组件中React正是这样去修改this.state的。不像捕获的props和state，你没法保证在任意一个回调函数中读取的latestCount.current是不变的。根据定义，你可以随时修改它。这就是为什么它不是默认行为，而是需要你主动选择这样做。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="Effect中的清理"><a href="#Effect中的清理" class="headerlink" title="Effect中的清理"></a>Effect中的清理</h3><p>像<a href="https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup" target="_blank" rel="noopener">文档中解释的</a>, 有些effects可能需要有一个清理步骤。本质上，它的目的是消除副作用（effect)，比如取消订阅。</p>
+<p>思考下面的代码:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() =&gt; {</span><br><span class="line">  ChatAPI.subscribeToFriendStatus(props.id, handleStatusChange);</span><br><span class="line">  return () =&gt; {</span><br><span class="line">    ChatAPI.unsubscribeFromFriendStatus(props.id, handleStatusChange);</span><br><span class="line">  };</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure>
+
+<p>假设第一次渲染的时候props是{id: 10}，第二次渲染的时候是{id: 20}。你可能会认为发生了下面的这些事：</p>
+<ul>
+<li>React 清除了 {id: 10}的effect。</li>
+<li>React 渲染{id: 20}的UI。</li>
+<li>React 运行{id: 20}的effect。</li>
+</ul>
+<p>(事实并不是这样。)</p>
+<p>如果依赖这种心智模型，你可能会认为清除过程“看到”的是旧的props因为它是在重新渲染之前运行的，新的effect“看到”的是新的props因为它是在重新渲染之后运行的。这种心智模型直接来源于class组件的生命周期。不过它并不精确。让我们来一探究竟。</p>
+<p>React只会在<a href="https://medium.com/@dan_abramov/this-benchmark-is-indeed-flawed-c3d6b5b6f97f" target="_blank" rel="noopener">浏览器绘制</a>后运行effects。这使得你的应用更流畅因为大多数effects并不会阻塞屏幕的更新。Effect的清除同样被延迟了。<strong>上一次的effect会在重新渲染后被清除</strong>：</p>
+<ul>
+<li>React 渲染{id: 20}的UI。</li>
+<li>浏览器绘制。我们在屏幕上看到{id: 20}的UI。</li>
+<li>React 清除{id: 10}的effect。</li>
+<li>React 运行{id: 20}的effect。</li>
+</ul>
+<p>你可能会好奇：如果清除上一次的effect发生在props变成{id: 20}之后，那它为什么还能“看到”旧的{id: 10}？</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://overreacted.io/deja_vu-5fe238cf03a21dfa32af624124fcdcff.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>引用上一章得到的结论:</p>
+<blockquote>
+<p>组件内的每一个函数（包括事件处理函数，effects，定时器或者API调用等等）会捕获定义它们的那次渲染中的props和state。</p>
+</blockquote>
+<p>现在答案显而易见。effect的清除并不会读取“最新”的props。它只能读取到定义它的那次渲染中的props值：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// First render, props are {id: 10}</span><br><span class="line">function Example() {</span><br><span class="line">  // ...</span><br><span class="line">  useEffect(</span><br><span class="line">    // Effect from first render</span><br><span class="line">    () =&gt; {</span><br><span class="line">      ChatAPI.subscribeToFriendStatus(10, handleStatusChange);</span><br><span class="line">      // Cleanup for effect from first render</span><br><span class="line">      return () =&gt; {</span><br><span class="line">        ChatAPI.unsubscribeFromFriendStatus(10, handleStatusChange);</span><br><span class="line">      };</span><br><span class="line">    }</span><br><span class="line">  );</span><br><span class="line">  // ...</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">// Next render, props are {id: 20}</span><br><span class="line">function Example() {</span><br><span class="line">  // ...</span><br><span class="line">  useEffect(</span><br><span class="line">    // Effect from second render</span><br><span class="line">    () =&gt; {</span><br><span class="line">      ChatAPI.subscribeToFriendStatus(20, handleStatusChange);</span><br><span class="line">      // Cleanup for effect from second render</span><br><span class="line">      return () =&gt; {</span><br><span class="line">        ChatAPI.unsubscribeFromFriendStatus(20, handleStatusChange);</span><br><span class="line">      };</span><br><span class="line">    }</span><br><span class="line">  );</span><br><span class="line">  // ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>王国会崛起转而复归尘土，太阳会脱落外层变为白矮星，最后的文明也迟早会结束。但是第一次渲染中effect的清除函数只能看到{id: 10}这个props。</p>
+<p>这正是为什么React能做到在绘制后立即处理effects — 并且默认情况下使你的应用运行更流畅。如果你的代码需要依然可以访问到老的props。</p>
+<h3 id="同步，-而非生命周期"><a href="#同步，-而非生命周期" class="headerlink" title="同步， 而非生命周期"></a>同步， 而非生命周期</h3><p>我最喜欢React的一点是它统一描述了初始渲染和之后的更新。这降低了你程序的<a href="https://overreacted.io/the-bug-o-notation/" target="_blank" rel="noopener">熵</a>。</p>
+<p>比如我有个组件像下面这样：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Greeting({ name }) {</span><br><span class="line">  return (</span><br><span class="line">    &lt;h1 className="Greeting"&gt;</span><br><span class="line">      Hello, {name}</span><br><span class="line">    &lt;/h1&gt;</span><br><span class="line">  );</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我先渲染<code>&lt;Greeting name="Dan" /&gt;</code>然后渲染<code>&lt;Greeting name="Yuzhi" /&gt;</code>，和我直接渲染<code>&lt;Greeting name="Yuzhi" /&gt;</code>并没有什么区别。在这两种情况中，我最后看到的都是“Hello, Yuzhi”。</p>
+<p>人们总是说：“重要的是旅行过程，而不是目的地”。在React世界中，恰好相反。重要的是目的，而不是过程。这就是JQuery代码中<code>$.addClass</code>或<code>$.removeClass</code>这样的调用（过程）和React代码中声明CSS类名应该是什么（目的）之间的区别。</p>
+<p>React会根据我们当前的props和state同步到DOM。“mount”和“update”之于渲染并没有什么区别。</p>
+<p>你应该以相同的方式去思考effects。useEffect使你能够根据props和state同步React tree之外的东西。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Greeting({ name }) {</span><br><span class="line">  useEffect(() =&gt; {</span><br><span class="line">    document.title = 'Hello, ' + name;</span><br><span class="line">  });</span><br><span class="line">  return (</span><br><span class="line">    &lt;h1 className="Greeting"&gt;</span><br><span class="line">      Hello, {name}</span><br><span class="line">    &lt;/h1&gt;</span><br><span class="line">  );</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这就是和大家熟知的mount/update/unmount心智模型之间细微的区别。理解和内化这种区别是非常重要的。如果你试图写一个effect会根据是否第一次渲染而表现不一致，你正在逆潮而动。如果我们的结果依赖于过程而不是目的，我们会在同步中犯错。</p>
+<p>先渲染属性A，B再渲染C，和立即渲染C并没有什么区别。虽然他们可能短暂地会有点不同（比如请求数据时），但最终的结果是一样的。</p>
+<p>不过话说回来，在每一次渲染后都去运行所有的effects可能并不高效。（并且在某些场景下，它可能会导致无限循环。）</p>
+<p>所以我们该怎么解决这个问题？</p>
+<h3 id="告诉React去比对你的Effects"><a href="#告诉React去比对你的Effects" class="headerlink" title="告诉React去比对你的Effects"></a>告诉React去比对你的Effects</h3><p>其实我们已经从React处理DOM的方式中学习到了解决办法。React只会更新DOM真正发生改变的部分，而不是每次渲染都大动干戈。</p>
+<p>当你把</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 className="Greeting"&gt;</span><br><span class="line">  Hello, Dan</span><br><span class="line">&lt;/h1&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>更新到</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 className="Greeting"&gt;</span><br><span class="line">  Hello, Yuzhi</span><br><span class="line">&lt;/h1&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>React 能够看到两个对象:</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const oldProps = {className: 'Greeting', children: 'Hello, Dan'};</span><br><span class="line">const newProps = {className: 'Greeting', children: 'Hello, Yuzhi'};</span><br></pre></td></tr></tbody></table></figure>
+
+<p>它会检测每一个props，并且发现children发生改变需要更新DOM，但className并没有。所以它只需要这样做：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">domNode.innerText = 'Hello, Yuzhi';</span><br><span class="line">// No need to touch domNode.className</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我们也可以用类似的方式处理effects吗？如果能够在不需要的时候避免调用effect就太好了。</p>
+<p>举个例子，我们的组件可能因为状态变更而重新渲染：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Greeting({ name }) {</span><br><span class="line">  const [counter, setCounter] = useState(0);</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; {</span><br><span class="line">    document.title = 'Hello, ' + name;</span><br><span class="line">  });</span><br><span class="line"></span><br><span class="line">  return (</span><br><span class="line">    &lt;h1 className="Greeting"&gt;</span><br><span class="line">      Hello, {name}</span><br><span class="line">      &lt;button onClick={() =&gt; setCounter(counter + 1)}&gt;</span><br><span class="line">        Increment</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/h1&gt;</span><br><span class="line">  );</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>但是我们的effect并没有使用counter这个状态。我们的effect只会同步name属性给document.title，但name并没有变。在每一次counter改变后重新给document.title赋值并不是理想的做法。</p>
+<p>好了，那React可以区分effects的不同吗？</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let oldEffect = () =&gt; { document.title = 'Hello, Dan'; };</span><br><span class="line">let newEffect = () =&gt; { document.title = 'Hello, Dan'; };</span><br><span class="line">// Can React see these functions do the same thing?</span><br></pre></td></tr></tbody></table></figure>
+
+<p>并不能。React并不能猜测到函数做了什么如果不先调用的话。（源码中并没有包含特殊的值，它仅仅是引用了name属性。）</p>
+<p>这是为什么你如果想要避免effects不必要的重复调用，你可以提供给useEffect一个依赖数组参数(deps)：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() =&gt; {</span><br><span class="line">  document.title = 'Hello, ' + name;</span><br><span class="line">}, [name]); // Our deps</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这好比你告诉React：“Hey，我知道你看不到这个函数里的东西，但我可以保证只使用了渲染中的name，别无其他。”</p>
+<p>如果当前渲染中的这些依赖项和上一次运行这个effect的时候值一样，因为没有什么需要同步React会自动跳过这次effect：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const oldEffect = () =&gt; { document.title = 'Hello, Dan'; };</span><br><span class="line">const oldDeps = ['Dan'];</span><br><span class="line"></span><br><span class="line">const newEffect = () =&gt; { document.title = 'Hello, Dan'; };</span><br><span class="line">const newDeps = ['Dan'];</span><br><span class="line"></span><br><span class="line">// React can't peek inside of functions, but it can compare deps.</span><br><span class="line">// Since all deps are the same, it doesn’t need to run the new effect.</span><br></pre></td></tr></tbody></table></figure>
+
+<p>即使依赖数组中只有一个值在两次渲染中不一样，我们也不能跳过effect的运行。要同步所有！</p>
+<h3 id="关于依赖项不要对React撒谎"><a href="#关于依赖项不要对React撒谎" class="headerlink" title="关于依赖项不要对React撒谎"></a>关于依赖项不要对React撒谎</h3><p>关于依赖项对React撒谎会有不好的结果。直觉上，这很好理解，但我曾看到几乎所有依赖class心智模型使用useEffect的人都试图违反这个规则。（我刚开始也这么干了！）</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function SearchResults() {</span><br><span class="line">  async function fetchData() {</span><br><span class="line">    // ...</span><br><span class="line">  }</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; {</span><br><span class="line">    fetchData();</span><br><span class="line">  }, []); // Is this okay? Not always -- and there's a better way to write it.</span><br><span class="line"></span><br><span class="line">  // ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>(官网的<a href="https://reactjs.org/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies" target="_blank" rel="noopener">Hooks FAQ</a>解释了应该怎么做。 我们在下面会重新回顾这个例子。)</p>
+<p>“但我只是想在挂载的时候运行它！”，你可能会说。现在只需要记住：如果你设置了依赖项，effect中用到的所有组件内的值都要包含在依赖中。这包括props，state，函数 — 组件内的任何东西。</p>
+<p>有时候你是这样做了，但可能会引起一个问题。比如，你可能会遇到无限请求的问题，或者socket被频繁创建的问题。解决问题的方法不是移除依赖项。我们会很快了解具体的解决方案。</p>
+<p>不过在我们深入解决方案之前，我们先尝试更好地理解问题。</p>
+<h3 id="如果设置了错误的依赖会怎么样呢？"><a href="#如果设置了错误的依赖会怎么样呢？" class="headerlink" title="如果设置了错误的依赖会怎么样呢？"></a>如果设置了错误的依赖会怎么样呢？</h3><p>如果依赖项包含了所有effect中使用到的值，React就能知道何时需要运行它：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() =&gt; {</span><br><span class="line">  document.title = 'Hello, ' + name;</span><br><span class="line">}, [name]);</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://overreacted.io/deps-compare-correct-fae247cd068eedbd4b62ba50592d2b3d.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>(依赖发生了变更，所以会重新运行effect。)</p>
+<p>但是如果我们将[]设为effect的依赖，新的effect函数不会运行：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() =&gt; {</span><br><span class="line">  document.title = 'Hello, ' + name;</span><br><span class="line">}, []); // Wrong: name is missing in deps</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://overreacted.io/deps-compare-wrong-25f75db3f9f57ffe1426912093577445.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>(依赖没有变，所以不会再次运行effect。)</p>
+<p>在这个例子中，问题看起来显而易见。但在某些情况下如果你脑子里“跳出”class组件的解决办法，你的直觉很可能会欺骗你。</p>
+<p>举个例子，我们来写一个每秒递增的计数器。在Class组件中，我们的直觉是：“开启一次定时器，清除也是一次”。这里有一个<a href="https://codesandbox.io/s/n5mjzjy9kl" target="_blank" rel="noopener">例子</a>说明怎么实现它。当我们理所当然地把它用useEffect的方式翻译，直觉上我们会设置依赖为[]。“我只想运行一次effect”，对吗？</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Counter() {</span><br><span class="line">  const [count, setCount] = useState(0);</span><br><span class="line"></span><br><span class="line">  useEffect(() =&gt; {</span><br><span class="line">    const id = setInterval(() =&gt; {</span><br><span class="line">      setCount(count + 1);</span><br><span class="line">    }, 1000);</span><br><span class="line">    return () =&gt; clearInterval(id);</span><br><span class="line">  }, []);</span><br><span class="line"></span><br><span class="line">  return &lt;h1&gt;{count}&lt;/h1&gt;;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然而，这个例子<a href="https://codesandbox.io/s/91n5z8jo7r" target="_blank" rel="noopener">只会递增一次</a>。天了噜。</p>
+<p>如果你的心智模型是“只有当我想重新触发effect的时候才需要去设置依赖”，这个例子可能会让你产生存在危机。你想要触发一次因为它是定时器 — 但为什么会有问题？</p>
+<p>如果你知道依赖是我们给React的暗示，告诉它effect所有需要使用的渲染中的值，你就不会吃惊了。effect中使用了count但我们撒谎说它没有依赖。如果我们这样做迟早会出幺蛾子。</p>
+<p>在第一次渲染中，count是0。因此，setCount(count + 1)在第一次渲染中等价于setCount(0 + 1)。既然我们设置了[]依赖，effect不会再重新运行，它后面每一秒都会调用setCount(0 + 1) ：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// First render, state is 0</span><br><span class="line">function Counter() {</span><br><span class="line">  // ...</span><br><span class="line">  useEffect(</span><br><span class="line">    // Effect from first render</span><br><span class="line">    () =&gt; {</span><br><span class="line">      const id = setInterval(() =&gt; {</span><br><span class="line">        setCount(0 + 1); // Always setCount(1)</span><br><span class="line">      }, 1000);</span><br><span class="line">      return () =&gt; clearInterval(id);</span><br><span class="line">    },</span><br><span class="line">    [] // Never re-runs</span><br><span class="line">  );</span><br><span class="line">  // ...</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">// Every next render, state is 1</span><br><span class="line">function Counter() {</span><br><span class="line">  // ...</span><br><span class="line">  useEffect(</span><br><span class="line">    // This effect is always ignored because</span><br><span class="line">    // we lied to React about empty deps.</span><br><span class="line">    () =&gt; {</span><br><span class="line">      const id = setInterval(() =&gt; {</span><br><span class="line">        setCount(1 + 1);</span><br><span class="line">      }, 1000);</span><br><span class="line">      return () =&gt; clearInterval(id);</span><br><span class="line">    },</span><br><span class="line">    []</span><br><span class="line">  );</span><br><span class="line">  // ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我们对React撒谎说我们的effect不依赖组件内的任何值，可实际上我们的effect有依赖！</p>
+<p>我们的effect依赖count - 它是组件内的值（不过在effect外面定义）：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const count = // ...</span><br><span class="line"></span><br><span class="line">useEffect(() =&gt; {</span><br><span class="line">  const id = setInterval(() =&gt; {</span><br><span class="line">    setCount(count + 1);</span><br><span class="line">  }, 1000);</span><br><span class="line">  return () =&gt; clearInterval(id);</span><br><span class="line">}, []);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>因此，设置[]为依赖会引入一个bug。React会对比依赖，并且跳过后面的effect：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://overreacted.io/interval-wrong-29e53bd0c9b7d2ac70d3cd924886b030.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>(依赖没有变，所以不会再次运行effect。)</p>
+<p>类似于这样的问题是很难被想到的。因此，我鼓励你将诚实地告知effect依赖作为一条硬性规则，并且要列出所以依赖。（我们提供了一个<a href="https://github.com/facebook/react/issues/14920" target="_blank" rel="noopener">lint规则</a>如果你想在你的团队内做硬性规定。）</p>
+<h3 id="两种诚实告知依赖的方法"><a href="#两种诚实告知依赖的方法" class="headerlink" title="两种诚实告知依赖的方法"></a>两种诚实告知依赖的方法</h3><p>有两种诚实告知依赖的策略。你应该从第一种开始，然后在需要的时候应用第二种。</p>
+<p>第一种策略是在依赖中包含所有effect中用到的组件内的值。让我们在依赖中包含count：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() =&gt; {</span><br><span class="line">  const id = setInterval(() =&gt; {</span><br><span class="line">    setCount(count + 1);</span><br><span class="line">  }, 1000);</span><br><span class="line">  return () =&gt; clearInterval(id);</span><br><span class="line">}, [count]);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>现在依赖数组正确了。虽然它可能不是太理想但确实解决了上面的问题。现在，每次count修改都会重新运行effect，并且定时器中的setCount(count + 1)会正确引用某次渲染中的 count值：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">// First render, state is 0</span><br><span class="line">function Counter() {</span><br><span class="line">  // ...</span><br><span class="line">  useEffect(</span><br><span class="line">    // Effect from first render</span><br><span class="line">    () =&gt; {</span><br><span class="line">      const id = setInterval(() =&gt; {</span><br><span class="line">        setCount(0 + 1); // setCount(count + 1)</span><br><span class="line">      }, 1000);</span><br><span class="line">      return () =&gt; clearInterval(id);</span><br><span class="line">    },</span><br><span class="line">    [0] // [count]</span><br><span class="line">  );</span><br><span class="line">  // ...</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">// Second render, state is 1</span><br><span class="line">function Counter() {</span><br><span class="line">  // ...</span><br><span class="line">  useEffect(</span><br><span class="line">    // Effect from second render</span><br><span class="line">    () =&gt; {</span><br><span class="line">      const id = setInterval(() =&gt; {</span><br><span class="line">        setCount(1 + 1); // setCount(count + 1)</span><br><span class="line">      }, 1000);</span><br><span class="line">      return () =&gt; clearInterval(id);</span><br><span class="line">    },</span><br><span class="line">    [1] // [count]</span><br><span class="line">  );</span><br><span class="line">  // ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这能<a href="https://codesandbox.io/s/0x0mnlyq8l" target="_blank" rel="noopener">解决问题</a>但是我们的定时器会在每一次count改变后清除和重新设定。这应该不是我们想要的结果：</p>
+<p><a href="https://overreacted.io/interval-rightish-5734271ddfa94d2d65ac6160515e0069.gif" target="_blank" rel="noopener"></a></p>
+<p>(依赖发生了变更，所以会重新运行effect。)</p>
+<p>第二种策略是修改effect内部的代码以确保它包含的值只会在需要的时候发生变更。我们不想告知错误的依赖 - 我们只是修改effect使得依赖更少。</p>
+<p>让我们来看一些移除依赖的常用技巧。</p>
+<h3 id="让Effects自给自足"><a href="#让Effects自给自足" class="headerlink" title="让Effects自给自足"></a>让Effects自给自足</h3><p>我们想去掉effect的count依赖。</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() =&gt; {</span><br><span class="line">  const id = setInterval(() =&gt; {</span><br><span class="line">    setCount(count + 1);</span><br><span class="line">  }, 1000);</span><br><span class="line">  return () =&gt; clearInterval(id);</span><br><span class="line">}, [count]);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>为了实现这个目的，我们需要问自己一个问题：我们为什么要用count？可以看到我们只在setCount调用中用到了count。在这个场景中，我们其实并不需要在effect中使用count。当我们想要根据前一个状态更新状态的时候，我们可以使用setState的<a href="https://reactjs.org/docs/hooks-reference.html#functional-updates" target="_blank" rel="noopener">函数形式</a>：</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useEffect(() =&gt; {</span><br><span class="line">  const id = setInterval(() =&gt; {</span><br><span class="line">    setCount(c =&gt; c + 1);</span><br><span class="line">  }, 1000);</span><br><span class="line">  return () =&gt; clearInterval(id);</span><br><span class="line">}, []);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我喜欢把类似这种情况称为“错误的依赖”。是的，因为我们在effect中写了setCount(count + 1)所以count是一个必需的依赖。但是，我们真正想要的是把count转换为count+1，然后返回给React。可是React其实已经知道当前的count。我们需要告知React的仅仅是去递增状态 - 不管它现在具体是什么值。</p>
+<p>这正是setCount(c =&gt; c + 1)做的事情。你可以认为它是在给React“发送指令”告知如何更新状态。这种“更新形式”在其他情况下也有帮助，比如你需要<a href="https://overreacted.io/react-as-a-ui-runtime/#batching" target="_blank" rel="noopener">批量更新</a>。</p>
+<p>注意我们做到了移除依赖，并且没有撒谎。我们的effect不再读取渲染中的count值。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://overreacted.io/interval-right-f128ad20c28317ed27a3cb68197fc906.gif" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>(依赖没有变，所以不会再次运行effect。)</p>
+<p>你可以自己<a href="https://codesandbox.io/s/q3181xz1pj" target="_blank" rel="noopener">试试</a>。</p>
+<p>尽管effect只运行了一次，第一次渲染中的定时器回调函数可以完美地在每次触发的时候给React发送c =&gt; c + 1更新指令。它不再需要知道当前的count值。因为React已经知道了。</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><blockquote>
+<p>原文作者：Dan Abramov<br>原文链接：<a href="https://overreacted.io/a-complete-guide-to-useeffect/" target="_blank" rel="noopener">https://overreacted.io/a-complete-guide-to-useeffect/</a></p>
+</blockquote>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>
+        </div>
+        <div>
+  <div>
+      <!-- {% if not is_index %} -->
+      <div style="text-align:center;color: #ccc;font-size:14px;margin-bottom: 10px;">-----------------------<span style="margin: 0 10px;">本文结束</span><i class="icon icon-paw"></i><span style="margin: 0 10px;">感谢您的阅读</span>-----------------------</div>
+      <!-- {% endif %} -->
+  </div>
+</div>
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新：<time datetime="2019-12-25T08:35:32.205Z" itemprop="dateUpdated">2019-12-25 16:35:32</time>
+</span>
+
+
+        
+        原文链接：<a href="/blog/posts/7/" target="_blank" rel="external">http://Lry0504.github.io/posts/7/</a>
+        
+    </div>
+    <footer>
+        <div onclick="location.href='http://Lry0504.github.io'">
+            <img src="/blog/img/avatar.jpg" alt="狗子赖">
+            <a>狗子赖</a>
+        </div>
+    </footer>
+</blockquote>
+
+        
+    <div class="page-reward">
+        <nav class="myreward">
+            <a id="rewardBtn" href="javascript:;"><span>打&nbsp;赏</span><span>装成好像很多人打赏的样子</span></a>
+        </nav>
+    </div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://Lry0504.github.io/posts/7/&title=《React Hooks系列之useEffect（二）》 — 狗子赖的博客&pic=http://Lry0504.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://Lry0504.github.io/posts/7/&title=《React Hooks系列之useEffect（二）》 — 狗子赖的博客&source=React Hooks系列之useEffect（二）" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://Lry0504.github.io/posts/7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React Hooks系列之useEffect（二）》 — 狗子赖的博客&url=http://Lry0504.github.io/posts/7/&via=http://Lry0504.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://Lry0504.github.io/posts/7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/blog/posts/6/" id="post-next" class="post-nav-link">
+        <h4 class="title" data-hover="下一篇：React Hooks系列之useEffect（一）">下一篇：React Hooks系列之useEffect（一）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+    
+
+    
+
+    
+
+
+</article>
+
+</div>
+
+        <footer class="footer">
+    <div class="footer-content">
+        <span class="power">
+            <i class="icon icon-lg icon-copyright"></i>
+            2019
+            <i class="icon icon-lg icon-heart"></i>
+            <a href="http://Lry0504.github.io">https://github.com/Lry0504</a>
+        </span>
+
+        <br/>
+
+        <span id="RunTime" style="color:#a7a7a2;"></span>
+        <br/>
+
+        <span>
+            
+	<i class="icon icon-lg icon-user">
+    <span>
+      访客人数：
+      <span id="busuanzi_value_site_uv"></span>
+    </span>人
+  </i>
+    ·
+  <i class="icon icon-lg icon-eye">
+    <span>
+      总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>次
+  </i>
+
+
+        </span>
+        <!-- <br/> -->
+
+        <!-- <span class="license"><a  target="_blank" rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">博客内容遵循 知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span> -->
+    </div>
+</footer>
+
+    </main>
+    
+        
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        <span>感谢您的鼓励支持！</span>
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" data-img="/blog/img/dog.png" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/blog/img/wechat.png" data-alipay="/blog/img/alipay.png">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechatPay">&nbsp;&nbsp;微信&nbsp;&nbsp;</span>
+                <span class="reward-toggle-item alipayPay">支付宝</span>
+            </div>
+        </label>
+        
+        <i class="icon icon-caret-up"></i>
+    </div>
+</div>
+
+
+    
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://Lry0504.github.io/posts/7/&title=《React Hooks系列之useEffect（二）》 — 狗子赖的博客&pic=http://Lry0504.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://Lry0504.github.io/posts/7/&title=《React Hooks系列之useEffect（二）》 — 狗子赖的博客&source=React Hooks系列之useEffect（二）" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://Lry0504.github.io/posts/7/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React Hooks系列之useEffect（二）》 — 狗子赖的博客&url=http://Lry0504.github.io/posts/7/&via=http://Lry0504.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://Lry0504.github.io/posts/7/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p class="wechatshare">扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3aQW6FMAwFQO5/abpFqoDnGFwqTVZfoG8mLCzbZNvitR/W8crvu8frScztjYWLi9vm7pfrjJugr+NU/4uLizvPvU401/Q8zSXxb2y4uLif5+aFTr49XFzc/8it9inVVgoXF/c73KRp6Wym2hQ90Kvh4uI2uNWU9MbvV+a7uLi4S9y9uJLH9Mejp0/HxcUd4XYKlCQxnV3JyxdcXNx57troMx+Ddsqm0/eKi4v7MjdPQDe5sDj4qCa7m7yLi4v7KDc/VFGlrH18vYmGi4s7yM1LmbXRRp7Ibui4uLjj3HITUiyGcujpBnBxcQe5SWOzNu5MXkH+ynBxcSe5+Zijmv7yu1EEXFzcEW7n4FTnkZ3N4OLiznPfOFxVLYNuruPi4g5yk9B5a5Q0TotPxMXFHedWxxYPHLSKj27g4uLOc6spqTpIrSavwm1cXNxHuXtxVT+gdiLg4uL+FTdf+QC0GjMpm8rxcXFx29y1IxGdzyprqRAXF3eeu5ZoOocq1pImLi7uN7nVhif5QFsolXBxcT/JzYubtfHHi3kXFxe3yO2nnrUmqtxu4eLijnDXhpvVAiVpjR6e7+Li4q5wfwBcqthXkKJZsQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <!-- waves按钮特效 -->
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<!-- 主题配置脚本 -->
+<script>
+var BLOG = { ROOT: '/blog/', SHARE: true, REWARD: true };
+</script>
+
+<!-- jquery -->
+<script src="/blog/js/jquery.min.js?v=3.0"></script>
+
+<!-- 搜索 -->
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item waves-block waves-effect" onclick="location.href='{path}'">
+    <div class="title ellipsis" title="{title}">{title}</div>
+</li>
+</template>
+
+
+<!-- main博客脚本 -->
+<script src="/blog/js/main.min.js?v=3.0" ></script>
+
+<!-- 动画&配置 -->
+<script src="/blog/js/script.min.js?v=3.0" ></script>
+
+<!-- 脚本管理 -->
+<script>
+
+if(window.innerWidth > 800){
+	/* 3D标题 */
+	$(".content-header").on("mousemove", threedee);
+
+	/* 底部追随鼠标 */
+	$(".footer").hover(2);
+
+	/* gotop键的涟漪 */
+	$("#gotop").hover(1);
+
+	/* 赞赏的粒子雨 */
+	$("#reward").hover(3);
+
+	/* 微信公众号的底部渲染 */
+	$("#wechat").hover(4);
+
+    /* 标题跳动 */
+    $(".archivestitle").bumpyText();
+
+	/* 图片点击放大 */
+	const postimg = jQuery(".post-content img:not(.github-emoji)");
+	postimg.on("click",function(){
+
+		mask.classList.add("in");
+		main.classList.add("Mask");
+		menu.classList.add("Mask");
+		var myimg = this.cloneNode(true);
+		myimg.classList.add("imgShow");
+
+		setTimeout(function(){
+			jQuery(myimg).animate({
+				opacity:"1"
+			},1000);
+		},0);
+
+		document.body.appendChild(myimg);
+
+		myimg.onclick=function(){
+			document.body.removeChild(myimg);
+			mask.classList.remove("in");
+			main.classList.remove("Mask");
+			menu.classList.remove("Mask");
+		};
+
+	});
+
+}
+
+/* 名字跳动 */
+$("#name").bumpyText();
+
+
+/* 网站运行时间 */
+setInterval(function () {
+	setTime("2019/08/21");
+}, 1000);
+
+/* 文章块的淡出 */
+postshow();
+
+/* 座右铭 */
+
+   getHitokoto();
+
+
+
+/* 粘贴提示 */
+G($(".post-content"), location.href, "狗子赖");
+
+
+/* 控制台 */
+if (window.console && window.console.log) {
+	setTimeout(function () {
+		console.log("\n %c 天妒嘤才狗子赖 %c  © Lry0504  http://Lry0504.github.io \n\n", "color:#FFFFFB;background:#1abc9c;padding:5px 0;border-radius:.5rem 0 0 .5rem;", "color:#FFFFFB;background:#080808;padding:5px 0;border-radius:0 .5rem .5rem 0;");
+	}, 0);
+}
+
+</script>
+
+
+
+
+<!-- 公式渲染 -->
+
+
+
+<!-- 不蒜子 -->
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<!-- Online contact -->
+
+
+<!-- 代码块复制功能 -->
+<script src ="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+!function (e, t, a) {
+  var initCopyCode = function(){
+    var copyHtml = '';
+    copyHtml += '<button class="btn-copy" data-clipboard-snippet="copy">';
+    copyHtml += '<span>Copy</span>';
+    copyHtml += '</button>';
+    $(".highlight .code pre").before(copyHtml);
+    new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+  }
+  initCopyCode();
+}(window, document);
+</script>
+
+<script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/blog/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7}});</script></body>
+</html>
