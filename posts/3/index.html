@@ -48,7 +48,7 @@
 <meta property="og:description" content="Js数组扁平化的几种实现方式">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/Lry0504/image_resources/master/blog/font-end/flatten.jpg">
-<meta property="og:updated_time" content="2019-10-14T13:04:10.149Z">
+<meta property="og:updated_time" content="2020-01-02T11:02:23.021Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Js数组扁平化">
 <meta name="twitter:description" content="Js数组扁平化的几种实现方式">
@@ -254,7 +254,7 @@
 <h3 id="ES6扩展运算符"><a href="#ES6扩展运算符" class="headerlink" title="ES6扩展运算符"></a>ES6扩展运算符</h3><p>ES6中的扩展运算符用来取出参数对象中的所有可遍历属性，拷贝到当前对象中</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,2,[3,[4]]];</span><br><span class="line">console.log([].concat(...arr)); //[1,2,3,[4]]</span><br></pre></td></tr></tbody></table></figure>
 
-<p><code>[].concat(...arr)</code>只能拉平一层数组，但是我们很容易据此想到，利用<code>while</code>循环判断数组中某个元素是否仍为数字，如果存在一个元素为数组，则继续拉平</p>
+<p><code>[].concat(...arr)</code>只能拉平一层数组，但是我们很容易据此想到，利用<code>while</code>循环判断数组中某个元素是否仍为数组，如果存在一个元素为数组，则继续拉平</p>
 <figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var array = [[1,2,3],4,5,6,[[7]],[]];</span><br><span class="line">function flatten(arr) {</span><br><span class="line">  while(arr.some(item =&gt; Array.isArray(item))) {</span><br><span class="line">    arr = [].concat(...arr);</span><br><span class="line">  }</span><br><span class="line">  return arr;</span><br><span class="line">}</span><br><span class="line">console.log(flatten(array)); //[1,2,3,4,5,6,7]</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="flat调用"><a href="#flat调用" class="headerlink" title="flat调用"></a>flat调用</h3><p>arr.flat(index)可以拉平数组，其中index表示拉平多少层数组，如果要拉平无限层数组，则可以表示为<code>arr.flat(Infinity)</code></p>
@@ -307,7 +307,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新：<time datetime="2019-10-14T13:04:10.149Z" itemprop="dateUpdated">2019-10-14 21:04:10</time>
+    最后更新：<time datetime="2020-01-02T11:02:23.021Z" itemprop="dateUpdated">2020-01-02 19:02:23</time>
 </span>
 
 
