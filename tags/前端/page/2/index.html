@@ -6,7 +6,7 @@
     
     
     
-    <title>狗子赖的博客</title>
+    <title>标签: 前端 | 狗子赖的博客</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     
     <meta name="theme-color" content="#77AAFF">
@@ -43,7 +43,7 @@
 <meta name="keywords" content="狗子赖，个人博客">
 <meta property="og:type" content="website">
 <meta property="og:title" content="狗子赖的博客">
-<meta property="og:url" content="http://Lry0504.github.io/index.html">
+<meta property="og:url" content="http://Lry0504.github.io/tags/前端/page/2/index.html">
 <meta property="og:site_name" content="狗子赖的博客">
 <meta property="og:description" content="狗子赖的个人博客">
 <meta property="og:locale" content="zh-CN">
@@ -85,7 +85,7 @@
     <div class="scroll-wrap flex-col">
       <ul class="nav">
         
-              <li class="waves-block waves-effect active">
+              <li class="waves-block waves-effect">
                   <a href="/blog/"  >
                     <i class="icon icon-lg icon-home"></i>
                     <span>主 页</span><i class="icon icon-lg icon-caret-left"></i>
@@ -106,7 +106,7 @@
                   </a>
               </li>
             
-              <li class="waves-block waves-effect">
+              <li class="waves-block waves-effect active">
                   <a href="/blog/tags"  >
                     <i class="icon icon-lg icon-tags"></i>
                     <span>标 签</span><i class="icon icon-lg icon-caret-left"></i>
@@ -151,7 +151,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">狗子赖的博客</div>
+        <div class="flex-col header-title ellipsis">标签: 前端</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -168,19 +168,29 @@
         </a>
     </div>
 </header>
-<header class="content-header index-header">
+<header class="content-header tags-header">
     
     
     <div class="container fade-scale">
         <div id="myheader">
             <h1 class="title">
-                 
-                    狗子赖的博客
                 
             </h1>
             <h5 class="subtitle">
                 
-                    在Web全栈的道路上努力前行
+                    <h1 id="pagetitle" class="archivestitle"></h1>
+                    <script>
+                        if(location.href.indexOf('about')!=-1){
+                            pagetitle.textContent = '天妒嘤才狗子赖';
+                        }else if(location.href.indexOf('tags')!=-1||location.href.indexOf('categories')!=-1){
+                            var a=location.href.substring(location.href.length-5,location.href.length-1);
+                            if(a==='tags'){
+                                pagetitle.textContent = '不积小流无以成江海';
+                            }else if(a==='ries'){
+                                pagetitle.textContent = '不积跬步无以至千里';
+                            }
+                        }
+                    </script>
                 
             </h5>
         </div>
@@ -188,448 +198,55 @@
 
 </header>
 
-<div class="container body-wrap">
-    <ul class="post-list">
-    
-        <li class="post-list-item fade">
-            <article id="post-Deep and shallow copy"
-  class="article-card article-type-post" itemprop="blogPost">
 
-    
+    <div class="container body-wrap fade">
+        
+            
+            
+            <h5 class="tag-tip">
+                <i class="icon icon-tag"></i>
+                关于
+                <span style="color:rgb(100, 100, 100)">前端</span>
+                共11篇文章
+            </h5>
+            <div class="waterfall">
+            
+                <article class="archive-article" onclick="location.href='/blog/posts/0/'">
+    <div class="archive-article-date">
+      
+      <time class="my-post-time">
+        <i class="icon icon-lg icon-file-text-o"></i>
+        &nbsp;
+          2019-09-24
+      </time>
+    </div>
+    <div class="archive-article-inner">
+      
 
 
   
     <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/11/">深拷贝与浅拷贝</a>
+      <a href="/blog/posts/0/">Array知识清单</a>
     </h3>
   
 
 
 
-
-     <div class="post-meta">
-        <time class="post-time" title="2020-01-06 17:11:21" datetime="2020-01-06T09:11:21.363Z"  itemprop="datePublished">2020-01-06</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>深拷贝与浅拷贝</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/11/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
+      <br/>
+      
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
 
     </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-react Hooks[6]"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/10/">React Hooks系列之useRef</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-12-29 22:59:50" datetime="2019-12-29T14:59:50.490Z"  itemprop="datePublished">2019-12-29</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>React Hooks系列之useRef</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/10/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
+  </article>
+            
+            </div>
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
 
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-react Hooks[5]"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/9/">React Hooks系列之useContext</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-12-26 16:15:16" datetime="2019-12-26T08:15:16.147Z"  itemprop="datePublished">2019-12-26</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>React Hooks系列之useContext</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/9/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-react Hooks[4]"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/8/">React Hooks系列之useEffect（三）</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-12-25 17:02:55" datetime="2019-12-25T09:02:55.752Z"  itemprop="datePublished">2019-12-25</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>React Hooks系列之useEffect（三）</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/8/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-react Hooks[3]"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/7/">React Hooks系列之useEffect（二）</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-12-25 13:36:10" datetime="2019-12-25T05:36:10.603Z"  itemprop="datePublished">2019-12-25</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>React Hooks系列之useEffect（二）</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/7/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-react Hooks[2]"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/6/">React Hooks系列之useEffect（一）</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-12-17 19:47:08" datetime="2019-12-17T11:47:08.984Z"  itemprop="datePublished">2019-12-17</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>React Hooks系列之useEffect（一）</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/6/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-react Hooks[1]"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/5/">React Hooks初探</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-12-06 10:24:43" datetime="2019-12-06T02:24:43.194Z"  itemprop="datePublished">2019-12-06</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>React Hooks初探</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/5/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-unique"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/4/">Js数组去重</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-10-15 10:08:22" datetime="2019-10-15T02:08:22.198Z"  itemprop="datePublished">2019-10-15</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>Js数组去重的几种实现方式</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/4/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-flatten"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/3/">Js数组扁平化</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-10-14 11:12:25" datetime="2019-10-14T03:12:25.688Z"  itemprop="datePublished">2019-10-14</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>Js数组扁平化的几种实现方式</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/3/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-debounce~throttle"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a href="/blog/posts/2/">函数防抖与节流</a>
-    </h3>
-  
-
-
-
-
-     <div class="post-meta">
-        <time class="post-time" title="2019-10-12 11:07:29" datetime="2019-10-12T03:07:29.083Z"  itemprop="datePublished">2019-10-12</time>
-
-    </div>
-
-    <div class="post-content abstract" id="post-content" itemprop="postContent">
-
-    
-        <p>防抖debounce与节流throttle的实现</p>
-    
-        <div class="post-more-div">
-            <a href="/blog/posts/2/" class="post-more waves-button" style="line-height: 1.4">
-                阅读全文 »
-            </a>
-        </div>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/前端/">前端</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-    </ul>
-
-    
 <nav id="page-nav">
     <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="extend next" rel="next" href="/blog/page/2/">下一页</a>
+    <a class="extend prev" rel="prev" href="/blog/tags/前端/">上一页</a><a class="page-number" href="/blog/tags/前端/">1</a><span class="page-number current">2</span>
     </div>
 </nav>
-
 
 </div>
 
