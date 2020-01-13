@@ -427,9 +427,7 @@
     <!-- Valine Comments -->
     <div class="comments vcomment" id="comments"></div>
     <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script> -->
-    <script src="https://github.com/DesertsP/Valine/blob/master/dist/Valine.min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
     <!-- Valine Comments script -->
     <script>
         var GUEST_INFO = ['nick','mail','link'];
@@ -437,8 +435,7 @@
           return GUEST_INFO.indexOf(item) > -1
         });
         new Valine({
-            av: AV,
-            el: '.comments',
+            el: '#comments',
             notify: 'false' == 'true',
             verify: 'false' == 'true',
             appId: "wQrz3akctyLkzYGySxn1FgY8-gzGzoHsz",
