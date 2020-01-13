@@ -453,10 +453,28 @@
             appId: "wQrz3akctyLkzYGySxn1FgY8-gzGzoHsz",
             appKey: "hYgkRpoK57mCsRlCFtp7Qor2",
             avatar: "mm",
-            placeholder: "欢迎留言~",
+            placeholder: "欢迎留言~记得填写昵称和邮箱，方便博主联系您哦~(*╹▽╹*)",
             guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
             pageSize: "10"
         })
+        // document.body.addEventListener('click', function(e) {
+        //     if (e.target.classList.contains('vsubmit')) {
+        //         const email = document.querySelector('input[type=email]');
+        //         const nick = document.querySelector('input[name=nick]');
+        //         const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        //         if (!email.value || !nick.value || !reg.test(email.value)) {
+        //             const str = `<div class="valert txt-center"><div class="vtext">请填写正确的昵称和邮箱！</div></div>`;
+        //             const vmark = document.querySelector('.vmark');
+        //             vmark.innerHTML = str;
+        //             vmark.style.display = 'block';
+
+        //             setTimeout(function() {
+        //                 vmark.style.display = 'none';
+        //                 vmark.innerHTML = '';
+        //             }, 2500);
+        //         }
+        //     }
+        // });
     </script>
     <!-- Valine Comments end -->
 
