@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://lry61.cn/blog/blog//posts/fbf759eb/</loc>
+    <lastmod>2020-01-14</lastmod>
+  </url>  <url>
     <loc>http://lry61.cn/blog/blog//posts/12/</loc>
     <lastmod>2020-01-09</lastmod>
   </url>  <url>
@@ -39,8 +42,5 @@
   </url>  <url>
     <loc>http://lry61.cn/blog/blog//posts/1/</loc>
     <lastmod>2019-10-01</lastmod>
-  </url>  <url>
-    <loc>http://lry61.cn/blog/blog//posts/fbf759eb/</loc>
-    <lastmod>2019-09-25</lastmod>
   </url>
 </urlset>
